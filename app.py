@@ -1,5 +1,6 @@
 from math import pow
 board = ['']
+a = []
 gridSize = int(input("Select number of rows and columns: "))
 
 def createBoard(gridsize):
@@ -8,6 +9,7 @@ def createBoard(gridsize):
     for i in range(gridSize):
         for i in range(gridSize):
             board.append(str(iteration))
+            a.append(iteration)
             iteration += 1
             if (iteration <11):
                 board.append(' | ')
@@ -16,12 +18,13 @@ def createBoard(gridsize):
         board.pop()
         board.append("\n")
         for i in range(gridSize):
-            board.append('- ')
-            board.append('+ ')
+            board.append('--')
+            board.append('+-')
         board.pop()
         board.append("\n")
     for i in range(gridSize*2):
         board.pop()
+    
     return board
 
 def game(grid, xTurn):
@@ -32,18 +35,31 @@ def game(grid, xTurn):
     if xTurn == True:
         choice = int(input(xInput))
         xTurn = False
-        print(xTurn)
+        a[choice-1] = True
     elif xTurn == False:
         choice = int(input(yInput))
         xTurn = True
-        print(xTurn)
+        a[choice-1] = False
 
     for i in range(len(board)):
         if board[i] == str(choice) and xTurn == False :
             board[i] = "x"
         elif board[i] == str(choice) and xTurn == True :
             board[i] = "o"
+    
+    x = gridSize
+    for i in range(grid):
+        t = a[i]
+        z = (t and a[(i-x-1)] and a[(i+x+1)])
+        #print(z)
 
+
+        
+        
+
+    
+    
+    print(a)
     return xTurn
 
 def main():
