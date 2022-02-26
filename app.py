@@ -1,4 +1,5 @@
 from math import pow
+import os
 board = ['']
 a = []
 gridSize = int(input("Select number of rows and columns: "))
@@ -28,9 +29,11 @@ def createBoard(gridsize):
     return board
 
 def game(grid, xTurn):
+    gameWon = False
     choice = 0
     xInput = ("x's turn to choose a square (1-" + str(grid) + "): ")
     yInput = ("o's turn to choose a square (1-" + str(grid) + "): ")
+    brk = ''
 
     if xTurn == True:
         choice = int(input(xInput))
@@ -46,31 +49,47 @@ def game(grid, xTurn):
             board[i] = "x"
         elif board[i] == str(choice) and xTurn == True :
             board[i] = "o"
+        brk = ''.join([brk, "_"])
     
     x = gridSize
     for i in range(grid):
         t = a[i]
-        z = (t and a[(i-x-1)] and a[(i+x+1)])
-        #print(z)
-
-
+        try:
+            z = (t == a[(i-x-1)] == a[(i+x+1)])
+            b = (t == a[(i-x)] == a[i+x])
+            c= (t == a[(i-x+1)] == a[(i+x-1)])
+            d = (t == a[(i-1)] == a[(i+1)])
         
-        
+        except:
+            pass
 
-    
-    
-    print(a)
-    return xTurn
+        else:
+            if(z or b or c or d):
+                gameWon = True
+            else:
+                continue
+            
+    print(''.join([brk, "_____\n"]))
+        
+    return xTurn, gameWon
 
 def main():
     xTurn = True
     win = False
     board = createBoard(gridSize)
+    print("\n")
     print(' '.join(board))
     grid = gridSize * gridSize
     while win == False:
-        xTurn = game(grid, xTurn)
-        print(' '.join(board))
+        xTurn, win = game(grid, xTurn) #game handler
+        print(' '.join(board)) #display handler
+    
+    print("Game over!")
+    if xTurn:
+        print("O wins\n")
+    else:
+        print("X WINS\n")
+
 
 
 main()
