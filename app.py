@@ -1,3 +1,9 @@
+# Tic Tac Toe
+# Author: Thomas Vargas
+# CSE210 01
+
+
+
 from math import pow
 import os
 board = ['']
@@ -68,7 +74,7 @@ def game(grid, xTurn):
                 gameWon = True
             else:
                 continue
-            
+
     print(''.join([brk, "_____\n"]))
         
     return xTurn, gameWon
